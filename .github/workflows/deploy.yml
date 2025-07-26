@@ -28,10 +28,10 @@ jobs:
       - name: 🔐 SSH 및 SCP 설정
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          printf "%s" "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
-
+ 
       - name: 🚚 EC2로 JAR 전송
         run: |
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no build/libs/*.jar ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/new-app.jar
