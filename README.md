@@ -102,7 +102,7 @@ JUnit 기반 테스트가 작성되어 있으며, 다음 명령어로 실행할 
 
 ### Swagger UI:
 
-http://13.125.248.110:8080/swagger-ui/index.html
+http://13.125.248.110/swagger-ui/index.html
 
 ### ☁ 배포 정보
 
