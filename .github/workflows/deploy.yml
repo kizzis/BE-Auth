@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '**.java'
-      - 'src/**'
 
 jobs:
   deploy:
