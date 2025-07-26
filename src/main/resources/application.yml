@@ -1,0 +1,36 @@
+spring:
+  config:
+    import: optional:file:.env[properties]
+
+  datasource:
+    url: ${H2_DB_URL}
+    username: ${H2_USER}
+    password: ${H2_PASSWORD}
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+jwt:
+  secret:
+    key: ${JWT_ACCESS_SECRET_KEY}
+  access-expires-in: 18000000 # 5h
+
+admin:
+  secret:
+    key: ${ADMIN_TOKEN}
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
