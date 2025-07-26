@@ -25,11 +25,11 @@ public class SwaggerConfig {
 		Server server = new Server().url("http://localhost:8080" + contextPath)
 			.description("로컬 개발 서버");
 
-		// Server deployedServer = new Server().url("" + contextPath)
-		// 	.description("배포 서버");
+		Server deployedServer = new Server().url("http://13.125.248.110:8080" + contextPath)
+			.description("배포 서버");
 
 		return new OpenAPI()
-			.servers(List.of(server))
+			.servers(List.of(server, deployedServer))
 			.components(authSetting())
 			.info(swaggerInfo())
 			.addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
