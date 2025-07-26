@@ -34,7 +34,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		"/h2-console/**",
 		"/swagger-ui/**",
 		"/swagger-ui.html",
-		"/v3/api-docs/**"
+		"/v3/api-docs/**",
+		"/v3/api-docs"
 	};
 	private final JwtUtil jwtUtil;
 	private final UserDetailsServiceImpl userDetailsService;
