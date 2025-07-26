@@ -1,0 +1,70 @@
+name: EC2에 Spring Boot 자동 배포
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.java'
+      - 'src/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 소스코드 체크아웃
+        uses: actions/checkout@v3
+
+      - name: ☕️ JDK 설정
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🛠 Gradle 빌드
+        run: ./gradlew clean build -x test
+
+      - name: 📦 빌드 결과 확인
+        run: ls -al build/libs
+
+      - name: 🔐 SSH 및 SCP 설정
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+
+      - name: 🚚 EC2로 JAR 전송
+        run: |
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no build/libs/*.jar ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USER }}/new-app.jar
+
+      - name: 🚀 EC2에서 애플리케이션 실행
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+            set -e
+
+            echo "[1단계] 환경 변수 파일 설정"
+            cat > ~/.env <<EOL
+            DB_URL=${{ secrets.ENV_DATASOURCE_URL }}
+            DB_USER=${{ secrets.ENV_DATASOURCE_USERNAME }}
+            DB_PASSWORD=${{ secrets.ENV_DATASOURCE_PASSWORD }}
+            JWT_ACCESS_SECRET_KEY=${{ secrets.ENV_SECRET_KEY }}
+            ADMIN_TOKEN=${{ secrets.ENV_ADMIN_SIGNUP_SECRET }}
+            EOL
+
+            echo "[2단계] 기존 앱 종료"
+            pkill -f 'java -jar' || echo "기존 프로세스 없음"
+
+            echo "[3단계] JAR 파일 덮어쓰기"
+            mv ~/new-app.jar ~/app.jar
+
+            echo "[4단계] 앱 실행 (백그라운드 실행)"
+            nohup java -jar ~/app.jar --spring.config.import=optional:file:.env[.properties] > ~/app.log 2>&1 &
+
+            echo "[5단계] 최근 로그 확인"
+            sleep 3
+            tail -n 50 ~/app.log || echo "로그 없음"
+
+            echo "✅ 배포 완료"
+          EOF
