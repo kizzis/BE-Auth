@@ -3,9 +3,9 @@ spring:
     import: optional:file:.env[properties]
 
   datasource:
-    url: ${H2_DB_URL}
-    username: ${H2_USER}
-    password: ${H2_PASSWORD}
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.h2.Driver
 
   jpa:
