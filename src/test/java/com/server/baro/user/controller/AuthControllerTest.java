@@ -55,7 +55,7 @@ class AuthControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json)
 			)
-			.andExpect(status().isOk());
+			.andExpect(status().isCreated());
 	}
 
 	@Test
@@ -94,7 +94,7 @@ class AuthControllerTest {
 				.content(objectMapper.writeValueAsString(
 					new UserSignUpRequest("user1", "1234", "p1", null)
 				)))
-			.andExpect(status().isOk());
+			.andExpect(status().isCreated());
 
 		UserLoginRequest req = new UserLoginRequest("user1", "1234");
 		String loginReqBody = objectMapper.writeValueAsString(req);
@@ -114,7 +114,7 @@ class AuthControllerTest {
 				.content(objectMapper.writeValueAsString(
 					new UserSignUpRequest("user1", "1234", "p1", null)
 				)))
-			.andExpect(status().isOk());
+			.andExpect(status().isCreated());
 
 		UserLoginRequest req = new UserLoginRequest("user1", "1235");
 		String loginReqBody = objectMapper.writeValueAsString(req);

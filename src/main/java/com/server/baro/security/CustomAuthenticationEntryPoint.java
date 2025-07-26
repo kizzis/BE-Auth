@@ -33,10 +33,10 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 		ErrorCode errorCode;
 		if (authException instanceof CustomAuthenticationException e) {
 			errorCode = e.getErrorCode();
-			log.warn("인증 실패 - CustomAuthenticationException: {}", errorCode);
+			log.warn("인증 실패 - CustomAuthenticationException: {} {}", errorCode, e.getMessage());
 		} else {
 			errorCode = ErrorCode.UNAUTHORIZED;
-			log.error("일반 인증 실패 - AuthenticationException: {}", errorCode);
+			log.error("일반 인증 실패 - AuthenticationException: {} {}", errorCode, authException.getMessage());
 		}
 
 		response.setStatus(errorCode.getHttpStatus().value());
