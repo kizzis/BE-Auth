@@ -7,7 +7,20 @@ import com.server.baro.user.entity.UserRole;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(name = "UserRoleUpdateResponse", description = "권한 부여 성공 응답 DTO")
+@Schema(
+	name = "UserRoleUpdateResponse",
+	description = "권한 부여 성공 응답 DTO",
+	example = """
+		{
+		  "username": "admin1234",
+		  "nickname": "관리자12",
+		  "roles": [
+		    {
+		      "role": "ADMIN"
+		    }
+		  ]
+		}
+		""")
 public record UserRoleUpdateResponse(
 	@Schema(description = "사용자의 아이디", example = "admin1234")
 	String username,

@@ -28,7 +28,7 @@ public record UserSignUpResponse(
 
 	@Schema(name = "UserRoleResponse", description = "사용자 권한 정보 DTO")
 	public record UserRoleResponse(
-		@Schema(description = "사용자 역할 (USER 또는 ADMIN)", example = "USER")
+		@Schema(description = "사용자 역할 (USER 또는 ADMIN)", example = "ADMIN")
 		UserRole role
 	) {
 		public static UserRoleResponse from(UserRole role) {

@@ -28,7 +28,7 @@ public record UserSignUpRequest(
 
 	@Schema(
 		description = "관리자 토큰 (관리자 계정 생성 시 필요, 일반 사용자는 불필요)",
-		example = "",
+		example = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC",
 		required = false
 	)
 	String adminToken
