@@ -5,15 +5,15 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 
 ## 구현 사항
 
--[x] JWT 기반 회원가입 / 로그인 / 권한 부여 API 개발
--[x] 역할(Role) 기반 관리자 접근 제어
--[x] Swagger UI를 통한 API 문서화
--[x] JUnit 기반 테스트 작성
--[x] AWS EC2 배포 및 Nginx 리버스 프록시 구성
+- [x] JWT 기반 회원가입 / 로그인 / 권한 부여 API 개발
+- [x] 역할(Role) 기반 관리자 접근 제어
+- [x] Swagger UI를 통한 API 문서화
+- [x] JUnit 기반 테스트 작성
+- [x] AWS EC2 배포 및 Nginx 리버스 프록시 구성
 
 ### ➕ 추가 기능
 
--[x] GitHub Actions 기반 CI/CD 자동화 파이프라인 구성
+- [x] GitHub Actions 기반 CI/CD 자동화 파이프라인 구성
 
 ## 🛠 기술 스택
 
@@ -27,7 +27,7 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 - AWS EC2 (Ubuntu 24.04 LTS)
 - Nginx (리버스 프록시)
 
-## 📋주요 APIs
+## 📋 APIs
 
 ### 1. 회원가입 `POST /signup`
 
@@ -90,7 +90,7 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 }
 ```
 
-## 🏁테스트
+## 🏁 테스트
 
 JUnit 기반 테스트가 작성되어 있으며, 다음 명령어로 실행할 수 있습니다.
 
