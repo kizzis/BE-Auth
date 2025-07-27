@@ -15,6 +15,20 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 
 - [x] GitHub Actions 기반 CI/CD 자동화 파이프라인 구성
 
+## 📘 Swagger 문서
+
+### Swagger UI:
+
+http://13.125.248.110/swagger-ui/index.html
+
+### ☁ 배포 정보
+
+- EC2 주소: http://13.125.248.110
+- 서버 환경:
+    - 운영체제: Ubuntu 24.04 LTS
+    - JDK: OpenJDK 17 (Temurin)
+    - 웹 서버: Nginx (리버스 프록시 구성)
+
 ## 🛠 기술 스택
 
 - Java17
@@ -41,7 +55,7 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 }
 ```
 
-`응답`
+`응답 - 성공`
 
 ```
 {
@@ -55,6 +69,18 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 }
 ```
 
+`응답 - 실패`
+
+```
+{
+  "error": {
+    "code": "USER_ALREADY_EXISTS",
+    "message": "이미 가입된 사용자입니다."
+  }
+}
+
+```
+
 ### 2. 로그인 `POST /login`
 
 `요청`
@@ -66,7 +92,7 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 }
 ```
 
-`응답`
+`응답 - 성공`
 
 ```
 {
@@ -74,9 +100,20 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 }
 ```
 
+`응답 - 실패`
+
+```
+{
+  "error": {
+    "code": "INVALID_CREDENTIALS",
+    "message": "아이디 또는 비밀번호가 올바르지 않습니다."
+  }
+}
+```
+
 ### 3. 관리자 권한 부여 `PATCH /admin/users/{userId}/roles`
 
-`응답`
+`응답 - 성공`
 
 ```
 {
@@ -90,6 +127,17 @@ GitHub Actions 기반 CI/CD, AWS EC2 배포까지 구현한 백엔드 과제입�
 }
 ```
 
+`응답 - 실패`
+
+```
+{
+  "error": {
+    "code": "ACCESS_DENIED",
+    "message": "관리자 권한이 필요한 요청입니다. 접근 권한이 없습니다."
+  }
+}
+```
+
 ## 🏁 테스트
 
 JUnit 기반 테스트가 작성되어 있으며, 다음 명령어로 실행할 수 있습니다.
@@ -97,20 +145,6 @@ JUnit 기반 테스트가 작성되어 있으며, 다음 명령어로 실행할 
 ```
 ./gradlew test
 ```
-
-## 📘 Swagger 문서
-
-### Swagger UI:
-
-http://13.125.248.110/swagger-ui/index.html
-
-### ☁ 배포 정보
-
-- EC2 주소: http://13.125.248.110
-- 서버 환경:
-    - 운영체제: Ubuntu 24.04 LTS
-    - JDK: OpenJDK 17 (Temurin)
-    - 웹 서버: Nginx (리버스 프록시 구성)
 
 ## 📁 프로젝트 구조
 
